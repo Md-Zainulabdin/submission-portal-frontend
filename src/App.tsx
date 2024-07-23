@@ -1,9 +1,19 @@
-import { Button } from "@/components/ui/button";
+import { SiteFooter } from "@/components/static/Footer";
+import Hero from "@/components/static/Hero";
+import Navbar from "@/components/static/Navbar";
 
 const App = () => {
   return (
     <div>
-      <Button>Hello World</Button>
+      <header>
+        <Navbar />
+      </header>
+      <main>
+        <Hero />
+      </main>
+      <footer>
+        <SiteFooter />
+      </footer>
     </div>
   );
 };
