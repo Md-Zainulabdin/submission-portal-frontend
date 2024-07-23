@@ -4,7 +4,7 @@ import Navbar from "@/components/static/Navbar";
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-[#f4f4f4]">
       <header>
         <Navbar />
       </header>

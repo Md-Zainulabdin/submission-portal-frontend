@@ -3,10 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Cal";
+  src: url("../assets/fonts/cal.ttf") format("truetype");
+}
+
 body {
   font-family: "Inter", sans-serif;
 }
 
+.font-cal {
+  font-family: "Cal", sans-serif;
+}
 
 @layer base {
   :root {
