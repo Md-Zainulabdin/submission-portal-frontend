@@ -80,4 +80,12 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  .custom-button {
+    @apply font-cal mt-6 inline-block transform rounded-xl bg-green-500 px-6 py-2 text-lg font-semibold text-white transition-transform hover:scale-105;
+  }
+
+  .button {
+    @apply font-cal w-full inline-block transform rounded-md bg-green-500 px-6 py-2 text-lg font-semibold text-white;
+  }
 }
