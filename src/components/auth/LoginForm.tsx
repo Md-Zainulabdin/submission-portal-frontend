@@ -20,6 +20,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { Loader2 } from "lucide-react";
+
 import axiosInstance from "@/axios";
 import { useAuthContext } from "@/context/AuthContext";
 
@@ -46,6 +48,11 @@ const LoginForm = () => {
 
   const [isShow, setIsShow] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Spinner
+  const Icons = {
+    spinner: Loader2,
+  };
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -139,7 +146,13 @@ const LoginForm = () => {
               />
             </div>
             <button disabled={loading} className="button" type="submit">
-              Sign in
+              {loading ? (
+                <span className="flex w-full items-center justify-center">
+                  <Icons.spinner className="mr-2 h-5 w-5 animate-spin" />
+                </span>
+              ) : (
+                "Sign in"
+              )}
             </button>
           </form>
         </Form>
