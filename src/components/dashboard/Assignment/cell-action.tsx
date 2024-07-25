@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Assignment } from "@/types";
 import axiosInstance from "@/axios";
+// import toast from "react-hot-toast";
 import { MoreHorizontal, SquarePen, Trash, Users } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -45,7 +46,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       }
     } catch (error) {
       console.log("Form-Error", error);
-    //   toast.error("Something went wrong!");
+      // toast.error("Something went wrong!");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -68,7 +69,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="space-y-1 px-3">
+        <DropdownMenuContent align="end" className="w-[180px] space-y-1 px-2 py-2">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
             onClick={() => {

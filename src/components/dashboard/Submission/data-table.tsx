@@ -47,12 +47,17 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="flex items-center justify-between pb-4">
+      <div className="flex items-center pb-4">
         <Input
           placeholder="Search"
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          value={
+            (table.getColumn("assignmentTitle")?.getFilterValue() as string) ??
+            ""
+          }
           onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
+            table
+              .getColumn("assignmentTitle")
+              ?.setFilterValue(event.target.value)
           }
           className="max-w-sm border"
         />
