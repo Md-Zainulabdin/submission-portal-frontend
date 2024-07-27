@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from "react-router-dom";
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,60 +7,97 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { Assignment } from "@/types";
 import axiosInstance from "@/axios";
 import { useAuthContext } from "@/context/AuthContext";
 import SubmitModal from "@/components/dashboard/Submission/submit-modal";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const AssignmentDetails = () => {
   const { id } = useParams();
   const { authToken } = useAuthContext();
 
+  const [state, setState] = useState<{
+    data: Assignment | null;
+    loading: boolean;
+  }>({ data: null, loading: true });
   const [show, setShow] = useState<boolean>(false);
-  const [data, setData] = useState<Assignment>();
+
+  const fetchData = useCallback(async () => {
+    setState({ data: null, loading: true });
+    try {
+      const response = await axiosInstance.get(`/assignment/${id}`, {
+        headers: { Authorization: `${authToken?.token}` },
+      });
+      if (response.data) {
+        setState({ data: response.data, loading: false });
+      }
+    } catch (error) {
+      console.error(error);
+      setState({ data: null, loading: false });
+    }
+  }, [id, authToken?.token]);
 
   useEffect(() => {
-    axiosInstance
-      .get(`/assignment/${id}`, {
-        headers: {
-          Authorization: `${authToken?.token}`,
-        },
-      })
-      .then((response) => {
-        if (response.data) {
-          setData(response.data);
-        }
-      })
-      .catch((error) => console.log(error));
-  }, [id]);
+    fetchData();
+  }, [fetchData]);
+
+  const breadcrumb = useMemo(
+    () => (
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbPage>
+              <Link to="/dashboard">Assignment</Link>
+            </BreadcrumbPage>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Details</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    ),
+    []
+  );
+
+  const skeleton = useMemo(
+    () => (
+      <>
+        <Skeleton className="w-[120px] h-[20px] rounded-full" />
+        <Skeleton className="w-full h-[20px] rounded-full" />
+        <Skeleton className="w-[50%] h-[20px] rounded-full" />
+        <Skeleton className="w-[150px] h-[20px] rounded-full" />
+      </>
+    ),
+    []
+  );
+
+  const { data, loading } = state;
 
   return (
     <div>
       <SubmitModal id={id ?? ""} isOpen={show} onClose={() => setShow(false)} />
       <div className="flex items-center justify-between">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbPage>
-                <Link to="/dashboard">Assignment</Link>
-              </BreadcrumbPage>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Details</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        {breadcrumb}
         <Button onClick={() => setShow(true)}>Submit</Button>
       </div>
       <section className="mt-6 space-y-3">
-        <h1 className="text-2xl font-semibold tracking-tight">{data?.title}</h1>
-        <p>{data?.description}</p>
-        {data?.link && (
-          <Link to={data.link} target="_blank">
-            Link
-          </Link>
+        {loading ? (
+          skeleton
+        ) : (
+          <>
+            <h1 className="text-2xl font-semibold tracking-tight">
+              {data?.title}
+            </h1>
+            <p>{data?.description}</p>
+            {data?.link && (
+              <Link to={data.link} target="_blank">
+                Link
+              </Link>
+            )}
+          </>
         )}
       </section>
     </div>

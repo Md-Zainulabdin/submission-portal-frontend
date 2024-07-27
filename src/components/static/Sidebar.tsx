@@ -4,9 +4,17 @@ import {
   Command,
   GalleryHorizontalEnd,
   Lock,
+  Settings,
   Users,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const Sidebar = () => {
   const { authToken } = useAuthContext();
@@ -25,6 +33,62 @@ const Sidebar = () => {
           Dashboard
         </NavLink>
 
+        {authToken?.user?.role == "admin" && (
+          <>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="item-2">
+                <AccordionTrigger>
+                  <div className="flex items-center gap-2">
+                    <Settings className="h-4 w-4" />
+                    Core Setting
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <NavLink
+                    to="/dashboard/students"
+                    className={({ isActive }) => {
+                      return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
+                        isActive && "bg-muted text-primary"
+                      }`;
+                    }}
+                  >
+                    <Users className="h-4 w-4" />
+                    Course
+                  </NavLink>
+
+                  <NavLink
+                    to="/dashboard/students"
+                    className={({ isActive }) => {
+                      return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
+                        isActive && "bg-muted text-primary"
+                      }`;
+                    }}
+                  >
+                    <Users className="h-4 w-4" />
+                    Batch
+                  </NavLink>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </>
+        )}
+
+        {authToken?.user?.role == "admin" && (
+          <>
+            <NavLink
+              to="/dashboard/students"
+              className={({ isActive }) => {
+                return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
+                  isActive && "bg-muted text-primary"
+                }`;
+              }}
+            >
+              <Users className="h-4 w-4" />
+              Students
+            </NavLink>
+          </>
+        )}
+
         {authToken?.user?.role == "teacher" && (
           <>
             <NavLink
@@ -38,19 +102,22 @@ const Sidebar = () => {
               <Users className="h-4 w-4" />
               Students
             </NavLink>
-
-            <NavLink
-              to="/dashboard/assignments"
-              className={({ isActive }) => {
-                return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
-                  isActive && "bg-muted text-primary"
-                }`;
-              }}
-            >
-              <CalendarCheck2 className="h-4 w-4" />
-              Assignments
-            </NavLink>
           </>
+        )}
+
+        {(authToken?.user?.role == "student" ||
+          authToken?.user?.role == "teacher") && (
+          <NavLink
+            to="/dashboard/assignments"
+            className={({ isActive }) => {
+              return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
+                isActive && "bg-muted text-primary"
+              }`;
+            }}
+          >
+            <CalendarCheck2 className="h-4 w-4" />
+            Assignments
+          </NavLink>
         )}
 
         {authToken?.user?.role == "student" && (
