@@ -4,13 +4,23 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const ReduxApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://submission-portal-backend.vercel.app/api/v1/",
+    baseUrl: "http://localhost:8000/api/v1/",
   }),
   keepUnusedDataFor: 600,
   endpoints: (builder) => ({
     getStudents: builder.query<Student[], string>({
       query: (token) => ({
         url: "/student/all",
+        method: "GET",
+        headers: {
+          Authorization: `${token}`,
+        },
+      }),
+    }),
+
+    getWidgetsData: builder.query<any, string>({
+      query: (token) => ({
+        url: "/dashboard/widget-data",
         method: "GET",
         headers: {
           Authorization: `${token}`,
@@ -58,4 +68,5 @@ export const {
   useGetAssignmentsQuery,
   useGetSubmissionHistoryQuery,
   useGetSubmissionsByAssignmentIdQuery,
+  useGetWidgetsDataQuery,
 } = ReduxApi;

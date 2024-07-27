@@ -11,7 +11,6 @@ const Student = () => {
     <div>
       <div>
         <h1 className="text-2xl font-semibold tracking-tighter">Students</h1>
-        <p></p>
       </div>
 
       <div className="py-8">
