@@ -49,7 +49,7 @@ const AssignmentDetails = () => {
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbPage>
-              <Link to="/dashboard">Assignment</Link>
+              <Link to="/dashboard/assignments">Assignment</Link>
             </BreadcrumbPage>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -81,7 +81,9 @@ const AssignmentDetails = () => {
       <SubmitModal id={id ?? ""} isOpen={show} onClose={() => setShow(false)} />
       <div className="flex items-center justify-between">
         {breadcrumb}
-        <Button onClick={() => setShow(true)}>Submit</Button>
+        <div className="flex items-center gap-3">
+          <Button onClick={() => setShow(true)}>Submit</Button>
+        </div>
       </div>
       <section className="mt-6 space-y-3">
         {loading ? (
@@ -91,12 +93,16 @@ const AssignmentDetails = () => {
             <h1 className="text-2xl font-semibold tracking-tight">
               {data?.title}
             </h1>
-            <p>{data?.description}</p>
+            <p className="text-lg text-muted-foreground">{data?.description}</p>
             {data?.link && (
               <Link to={data.link} target="_blank">
                 Link
               </Link>
             )}
+            <p className="text-lg font-semibold">
+              Total Points:{" "}
+              <span className="font-medium text-primary">{data?.points}</span>
+            </p>
           </>
         )}
       </section>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -67,16 +67,26 @@ const UpdateModal: React.FC<Props> = ({
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      status: status ?? "",
-      feedback: feedback ?? "",
-      points: points?.toString() ?? "",
-      rejectionReason: rejectionReason ?? "",
-      canResubmit: canResubmit ?? false,
+      status: "",
+      feedback: "",
+      points: "",
+      rejectionReason: "",
+      canResubmit: false,
     },
   });
 
   const { watch } = form;
   const selectedStatus = watch("status");
+
+  useEffect(() => {
+    form.reset({
+      status: status ?? "",
+      feedback: feedback ?? "",
+      points: points?.toString() ?? "",
+      rejectionReason: rejectionReason ?? "",
+      canResubmit: canResubmit ?? false,
+    });
+  }, [id]);
 
   const submitHandler = async (values: FormValues) => {
     if (Number(values?.points) > Number(total_points ?? 0)) {

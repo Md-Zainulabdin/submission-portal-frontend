@@ -52,7 +52,6 @@ const Sidebar = () => {
                       }`;
                     }}
                   >
-                    <Users className="h-4 w-4" />
                     Course
                   </NavLink>
 
@@ -64,7 +63,6 @@ const Sidebar = () => {
                       }`;
                     }}
                   >
-                    <Users className="h-4 w-4" />
                     Batch
                   </NavLink>
                 </AccordionContent>
