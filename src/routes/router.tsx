@@ -14,6 +14,12 @@ import UpdateAssignment from "@/pages/assignments/update";
 import Submissions from "@/pages/submissions";
 import SubmissionHistory from "@/pages/submissions-history";
 import AssignmentDetails from "@/pages/assignments/details";
+import StudentRegister from "@/pages/student/register";
+import Courses from "@/pages/courses";
+import Batches from "@/pages/batches";
+import Teachers from "@/pages/teachers";
+import CreateTeacher from "@/pages/teachers/new";
+import UpdateTeacher from "@/pages/teachers/update";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +62,26 @@ const router = createBrowserRouter([
         path: "/dashboard/submission-history",
         element: <SubmissionHistory />,
       },
+      {
+        path: "/dashboard/courses",
+        element: <Courses />,
+      },
+      {
+        path: "/dashboard/batches",
+        element: <Batches />,
+      },
+      {
+        path: "/dashboard/teachers",
+        element: <Teachers />,
+      },
+      {
+        path: "/dashboard/teachers/new",
+        element: <CreateTeacher />,
+      },
+      {
+        path: "/dashboard/teachers/update/:id",
+        element: <UpdateTeacher />,
+      },
     ],
   },
   {
@@ -65,6 +91,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "register",
+        element: <StudentRegister />,
       },
     ],
   },

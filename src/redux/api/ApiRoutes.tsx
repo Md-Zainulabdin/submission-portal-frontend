@@ -1,10 +1,10 @@
-import { Assignment, Student, Submission } from "@/types";
+import { Assignment, Batch, Course, Student, Submission, Teacher } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const ReduxApi = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://submission-portal-backend.vercel.app/api/v1/",
+    baseUrl: "http://localhost:8000/api/v1/",
   }),
   keepUnusedDataFor: 600,
   endpoints: (builder) => ({
@@ -38,6 +38,36 @@ export const ReduxApi = createApi({
       }),
     }),
 
+    getCourses: builder.query<Course[], string>({
+      query: (token) => ({
+        url: "/course/all",
+        method: "GET",
+        headers: {
+          Authorization: `${token}`,
+        },
+      }),
+    }),
+
+    getBatches: builder.query<Batch[], string>({
+      query: (token) => ({
+        url: "/batch/all",
+        method: "GET",
+        headers: {
+          Authorization: `${token}`,
+        },
+      }),
+    }),
+
+    getTeachers: builder.query<Teacher[], string>({
+      query: (token) => ({
+        url: "/admin/teachers/all",
+        method: "GET",
+        headers: {
+          Authorization: `${token}`,
+        },
+      }),
+    }),
+
     getSubmissionHistory: builder.query<Submission[], string>({
       query: (token) => ({
         url: "/submission/history",
@@ -64,6 +94,9 @@ export const ReduxApi = createApi({
 });
 
 export const {
+  useGetTeachersQuery,
+  useGetCoursesQuery,
+  useGetBatchesQuery,
   useGetStudentsQuery,
   useGetAssignmentsQuery,
   useGetSubmissionHistoryQuery,
