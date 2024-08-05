@@ -36,7 +36,7 @@ const CourseUpdateModal: React.FC<Props> = ({ isOpen, onClose, id }) => {
   const { authToken } = useAuthContext();
   const [loading, setLoading] = useState(false);
 
-  const { refetch, courses } = useGetCoursesQuery(authToken?.token ?? "");
+  const { refetch, data: courses } = useGetCoursesQuery(authToken?.token ?? "");
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
