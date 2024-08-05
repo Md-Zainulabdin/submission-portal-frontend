@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
 import { z } from "zod";
+import axiosInstance from "@/axios";
+import toast from "react-hot-toast";
+import React, { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -22,11 +24,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-
-import axiosInstance from "@/axios";
-// import toast from "react-hot-toast";
-import { useAuthContext } from "@/context/AuthContext";
 import { Modal } from "@/components/modal/Modal";
+
+import { useAuthContext } from "@/context/AuthContext";
 
 interface Props {
   isOpen: boolean;
@@ -90,7 +90,7 @@ const UpdateModal: React.FC<Props> = ({
 
   const submitHandler = async (values: FormValues) => {
     if (Number(values?.points) > Number(total_points ?? 0)) {
-      //   toast.error("Points cannot be greater than total points");
+      toast.error("Points cannot be greater than total points");
       return;
     }
 
@@ -116,13 +116,13 @@ const UpdateModal: React.FC<Props> = ({
       );
 
       if (response.status == 200) {
-        // toast.success("Details Updated");
+        toast.success("Details Updated");
         onClose();
         form.reset();
       }
     } catch (error: any) {
       console.log("Submission Error", error?.response?.data?.message);
-      //   toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }

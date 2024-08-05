@@ -1,6 +1,8 @@
 import { z } from "zod";
+import { useState } from "react";
+import { LoaderCircle } from "lucide-react";
 import axiosInstance from "@/axios";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
 
@@ -35,8 +37,6 @@ import { useAuthContext } from "@/context/AuthContext";
 import { Textarea } from "@/components/ui/textarea";
 import { Link, useNavigate } from "react-router-dom";
 import { useGetAssignmentsQuery } from "@/redux/api/ApiRoutes";
-import { useState } from "react";
-import { LoaderCircle } from "lucide-react";
 
 const formSchema = z.object({
   title: z
@@ -96,14 +96,14 @@ const AssignmentForm = () => {
       );
 
       if (response.status == 201) {
-        // toast.success("Assignment created successfully");
+        toast.success("Assignment created successfully");
         refetch();
         form.reset();
         navigate("/dashboard/assignments");
       }
     } catch (error: any) {
       console.log("Assignment Creation Error", error?.response?.data?.message);
-      //   toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }

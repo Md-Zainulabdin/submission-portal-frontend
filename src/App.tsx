@@ -11,9 +11,8 @@ const App = () => {
       <main>
         <Hero />
       </main>
-      <footer>
-        <SiteFooter />
-      </footer>
+
+      <SiteFooter />
     </div>
   );
 };

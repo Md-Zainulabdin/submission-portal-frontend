@@ -45,7 +45,7 @@ const Sidebar = () => {
                 </AccordionTrigger>
                 <AccordionContent>
                   <NavLink
-                    to="/dashboard/students"
+                    to="/dashboard/courses"
                     className={({ isActive }) => {
                       return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
                         isActive && "bg-muted text-primary"
@@ -56,7 +56,7 @@ const Sidebar = () => {
                   </NavLink>
 
                   <NavLink
-                    to="/dashboard/students"
+                    to="/dashboard/batches"
                     className={({ isActive }) => {
                       return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
                         isActive && "bg-muted text-primary"
@@ -73,6 +73,18 @@ const Sidebar = () => {
 
         {authToken?.user?.role == "admin" && (
           <>
+            <NavLink
+              to="/dashboard/teachers"
+              className={({ isActive }) => {
+                return `flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary ${
+                  isActive && "bg-muted text-primary"
+                }`;
+              }}
+            >
+              <Users className="h-4 w-4" />
+              Teachers
+            </NavLink>
+
             <NavLink
               to="/dashboard/students"
               className={({ isActive }) => {

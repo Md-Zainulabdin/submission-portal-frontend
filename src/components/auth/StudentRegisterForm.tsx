@@ -6,7 +6,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -25,9 +24,24 @@ import { Loader2 } from "lucide-react";
 
 import axiosInstance from "@/axios";
 import { useAuthContext } from "@/context/AuthContext";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
+  name: z
+    .string()
+    .min(2, {
+      message: "Name is required!",
+    })
+    .max(50),
+  cnic: z
+    .string()
+    .regex(/^[0-9]{5}-[0-9]{7}-[0-9]$/, {
+      message: "CNIC No must follow the XXXXX-XXXXXXX-X format!",
+    })
+    .min(2, {
+      message: "CNIC is required!",
+    })
+    .max(50),
   email: z
     .string()
     .email()
@@ -45,7 +59,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const LoginForm = () => {
+const StudentRegisterForm = () => {
   const { setAuthToken } = useAuthContext();
 
   const [isShow, setIsShow] = useState(false);
@@ -59,6 +73,8 @@ const LoginForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: "",
+      cnic: "",
       email: "",
       password: "",
     },
@@ -68,20 +84,21 @@ const LoginForm = () => {
     setLoading(true);
 
     const formData = {
+      name: values.name,
+      cnic: values.cnic,
       email: values.email,
       password: values.password,
     };
-
     try {
-      const response = await axiosInstance.post(`/auth/login`, formData);
+      const response = await axiosInstance.post(`/auth/`, formData);
 
       if (response.status === 200) {
         setAuthToken(response?.data);
-        // toast.success("Login Successfull");
+        toast.success("Registration Successfull");
       }
     } catch (error: any) {
       console.log("Login Error", error?.response?.data?.message);
-      //   toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -92,20 +109,46 @@ const LoginForm = () => {
   };
 
   return (
-    <Card className="w-[500px] shadow-md">
+    <Card className="w-[800px] shadow-md">
       <CardHeader>
-        <CardTitle className="text-2xl">Sign in</CardTitle>
-        <CardDescription>
-          Enter your email below to login to your account.
-        </CardDescription>
+        <CardTitle className="text-2xl">Register</CardTitle>
+        <CardDescription>Enter your details to register</CardDescription>
       </CardHeader>
-      <CardContent className="grid">
+      <CardContent>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(submitHandler)}
             className="space-y-6"
           >
-            <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="cnic"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>CNIC</FormLabel>
+                    <FormControl>
+                      <Input placeholder="XXXXX-XXXXXXX-X" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="email"
@@ -157,22 +200,14 @@ const LoginForm = () => {
                   <Icons.spinner className="mr-2 h-5 w-5 animate-spin" />
                 </span>
               ) : (
-                "Sign in"
+                "Register"
               )}
             </button>
           </form>
         </Form>
       </CardContent>
-      <CardFooter className="flex items-center justify-center">
-        <p className="text-muted-foreground text-sm mt-5">
-          Don't have an account?{" "}
-          <Link to={"/auth/register"} className="underline">
-            Register
-          </Link>
-        </p>
-      </CardFooter>
     </Card>
   );
 };
 
-export default LoginForm;
+export default StudentRegisterForm;
