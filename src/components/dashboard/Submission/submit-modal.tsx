@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import axiosInstance from "@/axios";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useAuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "@/components/modal/Modal";
@@ -64,14 +64,14 @@ const SubmitModal: React.FC<Props> = ({ isOpen, onClose, id }) => {
       );
 
       if (response.statusText === "Created") {
-        // toast.success("Assignment Submitted");
+        toast.success("Assignment Submitted");
         onClose();
         form.reset();
         navigate(-1);
       }
     } catch (error: any) {
       console.log("Submission Error", error?.response?.data?.message);
-      //   toast.error(error?.response?.data?.message);
+        toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }

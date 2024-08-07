@@ -1,12 +1,22 @@
-import { columns } from "@/components/dashboard/Student/column";
+import { getColumns } from "@/components/dashboard/Student/column";
 import { DataTable } from "@/components/dashboard/Student/data-table";
 import { useAuthContext } from "@/context/AuthContext";
-import { useGetStudentsQuery } from "@/redux/api/ApiRoutes";
+import {
+  useGetAllStudentsQuery,
+  useGetStudentsQuery,
+} from "@/redux/api/ApiRoutes";
 
 const Student = () => {
   const { authToken } = useAuthContext();
+  const userRole = authToken?.user?.role;
 
-  const { data } = useGetStudentsQuery(authToken?.token || "");
+  const { data: teacherStudents } = useGetStudentsQuery(authToken?.token || "");
+  const { data: allStudents } = useGetAllStudentsQuery(authToken?.token || "");
+
+  const data = userRole === "admin" ? allStudents : teacherStudents;
+
+  const columns = getColumns(userRole === "admin");
+
   return (
     <div>
       <div>

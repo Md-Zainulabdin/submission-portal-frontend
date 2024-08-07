@@ -115,7 +115,7 @@ const TeacherUpdateForm = () => {
         });
       }
     }
-  }, [id, teachers]);
+  }, [id, teachers, selectedCourse]);
 
   const submitHandler = async (values: FormValues) => {
     setLoading(true);
@@ -130,20 +130,24 @@ const TeacherUpdateForm = () => {
     };
 
     try {
-      const response = await axiosInstance.put(`/teacher/update`, formData, {
-        headers: {
-          Authorization: `${authToken?.token}`,
-        },
-      });
+      const response = await axiosInstance.put(
+        `/teacher/update/${id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `${authToken?.token}`,
+          },
+        }
+      );
 
-      if (response.status == 201) {
-        toast.success("New Teacher Created");
+      if (response.status == 200) {
+        toast.success("Teacher Details Updated");
         navigate("/dashboard/teachers");
         refetch();
         form.reset();
       }
     } catch (error: any) {
-      console.log("Assignment Creation Error", error?.response?.data?.message);
+      console.log("Teacher Update Error", error?.response?.data?.message);
       toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);
@@ -175,7 +179,7 @@ const TeacherUpdateForm = () => {
               </BreadcrumbList>
             </Breadcrumb>
             <div className="flex items-center gap-4">
-              <Link to="/dashboard/assignments">
+              <Link to="/dashboard/teachers">
                 <Button variant={"outline"}>
                   <span className="">Cancel</span>
                 </Button>

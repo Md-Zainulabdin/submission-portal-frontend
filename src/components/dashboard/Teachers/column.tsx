@@ -8,6 +8,10 @@ export const columns: ColumnDef<Teacher>[] = [
     header: "Fullname",
   },
   {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
     accessorKey: "gender",
     header: "Gender",
   },

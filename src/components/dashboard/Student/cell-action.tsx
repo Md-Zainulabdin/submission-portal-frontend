@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Assignment } from "@/types";
+import { Student } from "@/types";
 import axiosInstance from "@/axios";
-// import toast from "react-hot-toast";
-import { MoreHorizontal, SquarePen, Trash, Users } from "lucide-react";
+import toast from "react-hot-toast";
+import { MoreHorizontal, Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,38 +15,39 @@ import {
 import { AlertModal } from "@/components/modal/AlertModal";
 
 import { useAuthContext } from "@/context/AuthContext";
-import { useGetAssignmentsQuery } from "@/redux/api/ApiRoutes";
-import { useNavigate } from "react-router-dom";
+import { useGetAllStudentsQuery } from "@/redux/api/ApiRoutes";
 
 interface CellActionProps {
-  data: Assignment;
+  data: Student;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const naivgate = useNavigate();
 
   const { authToken } = useAuthContext();
-  const { refetch } = useGetAssignmentsQuery(authToken?.token || "");
+  const { refetch } = useGetAllStudentsQuery(authToken?.token || "");
 
   const onDeleteHandler = async () => {
     setLoading(true);
     try {
-      const response = await axiosInstance.delete(`/assignment/${data._id}`, {
-        headers: {
-          Authorization: `${authToken?.token}`,
-        },
-      });
+      const response = await axiosInstance.delete(
+        `/student/delete/${data._id}`,
+        {
+          headers: {
+            Authorization: `${authToken?.token}`,
+          },
+        }
+      );
 
       if (response.status == 200) {
-        // toast.success("Assignment Deleted");
+        toast.success("Student Deleted");
         setOpen(false);
         refetch();
       }
     } catch (error) {
       console.log("Form-Error", error);
-      // toast.error("Something went wrong!");
+      toast.error("Something went wrong!");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -69,24 +70,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-[180px] space-y-1 px-2 py-2">
+        <DropdownMenuContent
+          align="end"
+          className="w-[180px] space-y-1 px-2 py-2"
+        >
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-          <DropdownMenuItem
-            onClick={() => {
-              naivgate(`/dashboard/submissions/${data?._id}`);
-            }}
-          >
-            <Users className="mr-3 h-4 w-4" />
-            Submissions
-          </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() => {
-              naivgate(`/dashboard/assignments/update/${data?._id}`);
-            }}
-          >
-            <SquarePen className="mr-3 h-4 w-4" />
-            Update
-          </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() => {
               setOpen(true);

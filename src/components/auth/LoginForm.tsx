@@ -26,6 +26,7 @@ import { Loader2 } from "lucide-react";
 import axiosInstance from "@/axios";
 import { useAuthContext } from "@/context/AuthContext";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   email: z
@@ -77,11 +78,11 @@ const LoginForm = () => {
 
       if (response.status === 200) {
         setAuthToken(response?.data);
-        // toast.success("Login Successfull");
+        toast.success("Login Successfull");
       }
     } catch (error: any) {
       console.log("Login Error", error?.response?.data?.message);
-      //   toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -136,12 +137,12 @@ const LoginForm = () => {
                         {isShow ? (
                           <EyeOff
                             onClick={toggleShow}
-                            className="absolute right-3 top-2.5 h-5 w-5 cursor-pointer text-muted-foreground"
+                            className="absolute right-3 top-2.5 h-4 w-4 cursor-pointer text-muted-foreground"
                           />
                         ) : (
                           <Eye
                             onClick={toggleShow}
-                            className="absolute right-3 top-2.5 h-5 w-5 cursor-pointer text-muted-foreground"
+                            className="absolute right-3 top-2.5 h-4 w-4 cursor-pointer text-muted-foreground"
                           />
                         )}
                       </div>
@@ -164,7 +165,7 @@ const LoginForm = () => {
         </Form>
       </CardContent>
       <CardFooter className="flex items-center justify-center">
-        <p className="text-muted-foreground text-sm mt-5">
+        <p className="text-muted-foreground text-sm mt-2">
           Don't have an account?{" "}
           <Link to={"/auth/register"} className="underline">
             Register

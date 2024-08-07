@@ -16,12 +16,17 @@ export interface Student {
   gender: string;
   role: string;
   cnic: string;
-  phone: string;
-  address: string;
-  dateOfBirth: string;
-  campus: string;
-  course: string;
-  picture: string;
+  course: {
+    _id: string;
+    coursename: string;
+    city: string;
+  };
+  batch: {
+    _id: string;
+    batchname: string;
+    batchcode: string;
+    time: string;
+  };
   hasLaptop: boolean;
 }
 
@@ -45,7 +50,6 @@ export interface Teacher {
     batchcode: string;
     time: string;
   };
-  hasLaptop: boolean;
 }
 
 export interface Assignment {

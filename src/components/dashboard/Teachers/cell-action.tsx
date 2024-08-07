@@ -34,7 +34,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     setLoading(true);
     try {
       const response = await axiosInstance.delete(
-        `/course/delete/${data._id}`,
+        `/teacher/delete/${data._id}`,
         {
           headers: {
             Authorization: `${authToken?.token}`,
@@ -43,7 +43,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       );
 
       if (response.status == 200) {
-        toast.success("Course Deleted");
+        toast.success("Teacher Deleted");
         setOpen(false);
         refetch();
       }

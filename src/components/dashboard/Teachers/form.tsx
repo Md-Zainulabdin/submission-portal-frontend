@@ -163,7 +163,7 @@ const TeacherForm = () => {
               </BreadcrumbList>
             </Breadcrumb>
             <div className="flex items-center gap-4">
-              <Link to="/dashboard/assignments">
+              <Link to="/dashboard/teachers">
                 <Button variant={"outline"}>
                   <span className="">Cancel</span>
                 </Button>

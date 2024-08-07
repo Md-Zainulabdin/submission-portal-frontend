@@ -3,24 +3,26 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  // DropdownMenuLabel,
-  DropdownMenuSeparator,
+  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
   BookPlus,
   Lock,
+  LogOut,
   Menu,
   Package,
   ShoppingCart,
+  User,
   UserCircle,
   Wallet,
 } from "lucide-react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuthContext } from "@/context/AuthContext";
 
 const Topbar = () => {
+  const naivgate = useNavigate();
   const { authToken, removeAuthToken } = useAuthContext();
 
   return (
@@ -138,16 +140,27 @@ const Topbar = () => {
               <span className="sr-only">Toggle user menu</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-[150px]">
-            {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
-            <DropdownMenuItem>
-              Name
+          <DropdownMenuContent
+            align="end"
+            className="w-[180px] px-2 py-2"
+          >
+            <DropdownMenuLabel>Account</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => {
+                naivgate(`/dashboard/profile`);
+              }}
+            >
+              <User className="mr-3 h-4 w-4" />
+              Profile
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <Button onClick={() => removeAuthToken()} className="w-full">
-                Logout
-              </Button>
+
+            <DropdownMenuItem
+              onClick={() => {
+                removeAuthToken();
+              }}
+            >
+              <LogOut className="mr-3 h-4 w-4" />
+              Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
