@@ -105,3 +105,25 @@ export interface Batch {
     city: string;
   };
 }
+
+export interface User {
+  _id: string;
+  fullname: string;
+  email: string;
+  password: string;
+  gender?: string;
+  role: string;
+  cnic?: string;
+  course?: {
+    _id: string;
+    coursename: string;
+    city: string;
+  };
+  batch?: {
+    _id: string;
+    batchname: string;
+    batchcode: string;
+    time: string;
+  };
+  hasLaptop?: boolean;
+}

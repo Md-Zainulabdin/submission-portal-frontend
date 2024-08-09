@@ -5,6 +5,7 @@ import {
   Student,
   Submission,
   Teacher,
+  User,
 } from "@/types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -85,6 +86,16 @@ export const ReduxApi = createApi({
       }),
     }),
 
+    getUserById: builder.query<User, { token: string; id: string }>({
+      query: ({ token, id }) => ({
+        url: `/auth/user/${id}`,
+        method: "GET",
+        headers: {
+          Authorization: `${token}`,
+        },
+      }),
+    }),
+
     getSubmissionHistory: builder.query<Submission[], string>({
       query: (token) => ({
         url: "/submission/history",
@@ -111,6 +122,7 @@ export const ReduxApi = createApi({
 });
 
 export const {
+  useGetUserByIdQuery,
   useGetAllStudentsQuery,
   useGetTeachersQuery,
   useGetCoursesQuery,

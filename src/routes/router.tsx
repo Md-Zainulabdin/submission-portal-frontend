@@ -20,6 +20,7 @@ import Batches from "@/pages/batches";
 import Teachers from "@/pages/teachers";
 import CreateTeacher from "@/pages/teachers/new";
 import UpdateTeacher from "@/pages/teachers/update";
+import Profile from "@/pages/profile";
 
 const router = createBrowserRouter([
   {
@@ -81,6 +82,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/teachers/update/:id",
         element: <UpdateTeacher />,
+      },
+      {
+        path: "/dashboard/profile",
+        element: <Profile />,
       },
     ],
   },
