@@ -63,7 +63,7 @@ const SubmitModal: React.FC<Props> = ({ isOpen, onClose, id }) => {
         }
       );
 
-      if (response.statusText === "Created") {
+      if (response.status === 201) {
         toast.success("Assignment Submitted");
         onClose();
         form.reset();
