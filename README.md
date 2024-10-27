@@ -1,30 +1,71 @@
-# React + TypeScript + Vite
+<img src="https://res.cloudinary.com/debz5a6uw/image/upload/v1730046690/portfolio/ol9zcnkmupguxg7gikpy.jpg" style="width: 100%" alt="bg-img">
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<br>
 
-Currently, two official plugins are available:
+# Saylani's Assignment Submission Portal
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Welcome to Saylani's Assignment Submission Portal! This application is designed to simplify your assignment management experience. Effortlessly submit, review, and manage assignments with our streamlined portal, tailored for both students and teachers.
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- **User-Friendly Interface**: Intuitive design for easy navigation and management.
+- **Assignment Submission**: Students can submit assignments seamlessly.
+- **Review System**: Teachers can review and provide feedback on submitted assignments.
+- **Management Dashboard**: Access to manage all assignments in one place.
+- **Notifications**: Get notified about submission statuses and updates.
+
+## Technologies Used
+
+This portal is built using:
+
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A superset of JavaScript that adds static types.
+- **Vite**: A modern frontend build tool for faster development and hot reloading.
+
+## Installation
+
+To get started with the Assignment Submission Portal, follow these steps:
+
+1. **Clone the repository**:
+
+```bash
+   git clone https://github.com/Md-Zainulabdin/submission-portal-frontend.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. **Install dependencies:**:   
+
+```bash
+  npm install
+```
+
+2. **Run the application:**:   
+
+```bash
+  npm run dev
+```
+
+5. Open your browser and visit http://localhost:5173 to view the portal.
+
+## Usage
+
+Once the application is running, you can:
+
+- Register or log in as a student or teacher.
+- Submit assignments.
+- Review and provide feedback on submitted assignments.
+- Manage assignments from the dashboard.
+- Receive notifications about submission statuses and updates.
+- Explore the portal's features and functionality.
+
+## Contributing
+
+We welcome contributions! If you'd like to contribute to Saylani's Assignment Submission Portal, please fork the repository and submit a pull request.
